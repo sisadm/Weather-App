@@ -15,3 +15,17 @@ function printMessage(place, degree) {
     console.log(msg);
 }
 
+// get infromation from OpenWeather API
+
+function get(place) {
+    // connect to API
+    try {
+        const request = https.get('https://api.openweathermap.org/data/2.5/weather?q={city name}&appid=58995803f1e377733571b4e0ffa6674e');
+        console.log(request);
+    }
+    catch(error) {
+        console.log(error)
+    }
+};
+
+get('London');
