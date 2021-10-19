@@ -23,7 +23,9 @@ function get(place) {
         const request = https.get(`https://api.openweathermap.org/data/2.5/weather?q=${place}&appid=58995803f1e377733571b4e0ffa6674e`, response => {
             response.on('data', (d) => {
                 d = JSON.parse(d);
-                printMessage(place, d.main.temp);
+                // convert Kelvin to Fahrenheit and add two decimal number after that
+                let temp = ((Number(d.main.temp) - 273).toFixed(2) * 9 / 5 + 32);
+                printMessage(place, temp);
                 // console.log(d.main.temp);
             })
             
