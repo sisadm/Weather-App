@@ -11,7 +11,7 @@ const http = require('http');
 // message 
 
 function printMessage(place, degree) {
-    const msg = `Current temperature in ${place} is ${degree}`;
+    const msg = `Current temperature in ${place} is ${degree}F`;
     console.log(msg);
 }
 
@@ -20,12 +20,19 @@ function printMessage(place, degree) {
 function get(place) {
     // connect to API
     try {
-        const request = https.get('https://api.openweathermap.org/data/2.5/weather?q={city name}&appid=58995803f1e377733571b4e0ffa6674e');
-        console.log(request);
+        const request = https.get(`https://api.openweathermap.org/data/2.5/weather?q=${place}&appid=58995803f1e377733571b4e0ffa6674e`, response => {
+            response.on('data', (d) => {
+                d = JSON.parse(d);
+                printMessage(place, d.main.temp);
+                // console.log(d.main.temp);
+            })
+            
+        });
+        
     }
     catch(error) {
         console.log(error)
     }
 };
 
-get('London');
+get('Beverly Hills');
