@@ -25,9 +25,9 @@ function get(place) {
                 response.on('data', (d) => {
                     d = JSON.parse(d);
                     // convert Kelvin to Fahrenheit and add two decimal number after that
-                    let temp = ((Number(d.main.temp) - 273).toFixed(2) * 9 / 5 + 32);
+                    let temperature = ((Number(d.main.temp) - 273).toFixed(2) * 9 / 5 + 32);
                     let placeName = d.name;
-                    printMessage(placeName, temp);
+                    printMessage(placeName, temperature);
                     // console.log(d.main.temp);
                 })
                 
