@@ -28,15 +28,22 @@ function get(place) {
     // connect to API
     if(/^[0-9]+$/.test(place) != null) {
         try {
-            const request = https.get(`https://api.openweathermap.org/data/2.5/weather?q=${place}&appid=58995803f1e377733571b4e0ffa6674e`, response => {
-                response.on('data', (d) => {
-                    d = JSON.parse(d);
-                    // convert Kelvin to Fahrenheit and add two decimal number after that
-                    let temperature = ((Number(d.main.temp) - 273).toFixed(2) * 9 / 5 + 32);
-                    let placeName = d.name;
-                    printMessage(placeName, temperature);
-                    // console.log(d.main.temp);
-                })
+            const request = https.get(`https://api.openweathermap.org/datad/2.5/weather?q=${place}&appid=58995803f1e377733571b4e0ffa6674e`, response => {
+                if(response.statusCode === 200) {
+                    response.on('data', (d) => {
+                        d = JSON.parse(d);
+                        // convert Kelvin to Fahrenheit and add two decimal number after that
+                        let temperature = ((Number(d.main.temp) - 273).toFixed(2) * 9 / 5 + 32);
+                        let placeName = d.name;
+                        printMessage(placeName, temperature);
+                        // console.log(d.main.temp);
+                    });
+                } else {
+                    const errMsg = `There was a problem getting the ${place} (${http.STATUS_CODES[response.statusCode]})`;
+                    const statusCodeError = new Error(errMsg);
+                    errMessage(statusCodeError);
+                }
+                
                 
             });
             
