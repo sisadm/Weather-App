@@ -15,9 +15,16 @@ function printMessage(place, degree) {
     console.log(msg);
 }
 
+// error message 
+
+function errMessage(error) {
+    console.error(error.message);
+}
+
 // get infromation from OpenWeather API
 
 function get(place) {
+
     // connect to API
     if(/^[0-9]+$/.test(place) != null) {
         try {
@@ -35,7 +42,7 @@ function get(place) {
             
         }
         catch(error) {
-            console.log(error)
+            errMessage(error);
         }    
     } else {
         try {
@@ -52,7 +59,7 @@ function get(place) {
             
         }
         catch(error) {
-            console.log(error)
+            errMessage(error);
         }    
     }
     
