@@ -58,4 +58,4 @@ function get(place) {
     
 };
 
-get(41123);
+module.exports.get = get;
