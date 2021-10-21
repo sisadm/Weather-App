@@ -24,6 +24,9 @@ function errMessage(error) {
 // get infromation from OpenWeather API
 
 function get(place) {
+    // error message 
+    const errMsg = `There was a problem getting the ${place} (${http.STATUS_CODES[response.statusCode]})`;
+    const statusCodeError = new Error(errMsg);
 
     // connect to API
     if(/^[0-9]+$/.test(place) != null) {
@@ -39,8 +42,6 @@ function get(place) {
                         // console.log(d.main.temp);
                     });
                 } else {
-                    const errMsg = `There was a problem getting the ${place} (${http.STATUS_CODES[response.statusCode]})`;
-                    const statusCodeError = new Error(errMsg);
                     errMessage(statusCodeError);
                 }
             });
@@ -60,8 +61,6 @@ function get(place) {
                     // console.log(d.main.temp);
                 });
             } else {
-                const errMsg = `There was a problem getting the ${place} (${http.STATUS_CODES[response.statusCode]})`;
-                const statusCodeError = new Error(errMsg);
                 errMessage(statusCodeError);
                 }    
             });
